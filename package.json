@@ -2,8 +2,9 @@
   "name": "genX",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./distribution/index.js",
   "scripts": {
+    "build": "babel src --out-dir distribution",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/elvongray/genX#readme",
   "devDependencies": {
     "babel-cli": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0"
+    "babel-preset-es2015": "^6.9.0",
+    "webpack": "^1.13.1"
   }
 }

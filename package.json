@@ -1,0 +1,27 @@
+{
+  "name": "genX",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elvongray/genX.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Eniola Arinde",
+    "email": "eniolaarinde1@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elvongray/genX/issues"
+  },
+  "homepage": "https://github.com/elvongray/genX#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}

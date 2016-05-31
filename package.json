@@ -4,8 +4,8 @@
   "description": "",
   "main": "./distribution/index.js",
   "scripts": {
-    "build": "WEBPACK_ENV=build webpack",
-    "dev": "WEBPACK_ENV=dev webpack --progress --colors --watch",
+    "build": "cross-env WEBPACK_ENV=build webpack",
+    "dev": "cross-env WEBPACK_ENV=dev webpack --progress --colors --watch",
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
   },
   "repository": {
@@ -26,7 +26,8 @@
     "babel-cli": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "chai": "^3.5.0",
-    "moch": "0.0.1",
+    "cross-env": "^1.0.8",
+    "mocha": "^2.5.3",
     "webpack": "^1.13.1"
   }
 }

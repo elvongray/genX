@@ -1,6 +1,8 @@
 
-let crap = ({crap, what}) => {
-  console.log('crap');
-}
+import {count, cycle, repeat} from 'iter_tools';
 
-export default crap;
+export default {
+  count,
+  cycle,
+  repeat
+};

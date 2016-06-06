@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cross-env WEBPACK_ENV=build webpack",
     "dev": "cross-env WEBPACK_ENV=dev webpack --progress --colors --watch",
-    "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+    "test": "mocha --compilers js:babel-core/register --colors -w ./tests/*.spec.js"
   },
   "repository": {
     "type": "git",

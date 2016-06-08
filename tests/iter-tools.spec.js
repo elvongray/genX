@@ -4,7 +4,8 @@ import {
   count,
   cycle,
   repeat,
-  chain
+  chain,
+  compress
 } from '../dist/distribution';
 
 describe('Iteration tools test', () => {
@@ -106,6 +107,16 @@ describe('Iteration tools test', () => {
       } catch(e) {
         expect(e.message).to.contain('Argument 2 is not an iterable');
       }
+    });
+  });
+
+  describe('compress', () => {
+    it('should yield data values based on if the selector value is true', () => {
+      let check = compress('abcd', [1, 0, 1, 0])
+
+      expect(check.next().value).to.equal('a');
+      expect(check.next().value).to.equal('c');
+      expect(check.next().value).to.be.an('undefined');
     });
   });
 });

@@ -10,14 +10,28 @@ function isIterable(obj) {
   return typeof obj[Symbol.iterator] === 'function';
 }
 
-function zip(..args) {
+/**
+* Zip the value of two iterables
+*/
+function iterZip(firstIter, secondIter) {
+  let result = [];
+  let firstIterValues = [...firstIter];
+  const firstLength = firstIterValues.length;
+  let secondIterValues = [...secondIter];
+  const secondLength = secondIterValues.length;
 
+  for(var i = 0; i < firstLength; i++) {
+    if (secondIterValues[i] != null) {
+      result.push([firstIterValues[i], secondIterValues[i]]);
+    } else break;
+  }
+  return result;
 }
 
 function throwNotIterableError(message) {
   let defaultMsg = 'The argument passed is not an iterable';
-  let message = message == null ? defaultMsg : message;
-  throw new Error(`${message}, check out 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols' for more info`);
+  let msg = message == null ? defaultMsg : message;
+  throw new Error(`${msg}, check out 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols' for more info`);
 }
 
 /**
@@ -119,4 +133,9 @@ export function* compress(iterable, selectors) {
     throwNotIterableError();
   }
 
+  for (let [data, selector] of iterZip(iterable, selectors)) {
+    if (selector) {
+      yield data;
+    }
+  }
 }

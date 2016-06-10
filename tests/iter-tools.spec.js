@@ -5,7 +5,8 @@ import {
   cycle,
   repeat,
   chain,
-  compress
+  compress,
+  dropWhile
 } from '../dist/distribution';
 
 describe('Iteration tools test', () => {
@@ -117,6 +118,27 @@ describe('Iteration tools test', () => {
       expect(check.next().value).to.equal('a');
       expect(check.next().value).to.equal('c');
       expect(check.next().value).to.be.an('undefined');
+    });
+  });
+
+  describe('dropWhile', () => {
+    it('should drop values of iterable if callback returns true', () => {
+      let check = dropWhile([1,4,6,4,1], function(i) { return i < 5});
+
+      expect(check.next().value).to.equal(6);
+      expect(check.next().value).to.equal(4);
+      expect(check.next().value).to.equal(1);
+      expect(check.next().value).to.be.an('undefined');
+    });
+
+    it('should throw error if argument passed is not an iterable', () => {
+      let check = dropWhile(1234, function(i) { return i < 5});
+
+      try {
+        check.next().value
+      } catch(e) {
+        expect(e.message).to.contain('The argument passed is not an iterable')
+      }
     });
   });
 });

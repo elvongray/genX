@@ -1,10 +1,8 @@
-
-import {count, cycle, repeat, chain, compress} from './iter-tools';
-
-export default {
+export {
   count,
   cycle,
   repeat,
   chain,
-  compress
-};
+  compress,
+  dropWhile
+} from './iter-tools';

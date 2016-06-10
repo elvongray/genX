@@ -139,3 +139,28 @@ export function* compress(iterable, selectors) {
     }
   }
 }
+
+/**
+* Creates an iterator that drops values of an iterable as long as
+* the callback passed returns true.
+*
+* @param {object} iterable
+* @param {function} callback - the callback is passed values from the iterable
+* and should return a boolean
+* @return {object}
+*/
+export function* dropWhile(iterable, callback) {
+  let shouldYield = false;
+
+  if (!isIterable(iterable)) {
+    throwNotIterableError();
+  }
+
+  for (let element of iterable) {
+    if (!callback(element)) {
+      shouldYield = true;
+    }
+
+    if (shouldYield) yield element;
+  }
+}

@@ -6,5 +6,6 @@ export {
   compress,
   dropWhile,
   iFilter,
-  iFilterFalse
+  iFilterFalse,
+  iSlice
 } from './iter-tools';

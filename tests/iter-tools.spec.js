@@ -8,7 +8,8 @@ import {
   compress,
   dropWhile,
   iFilter,
-  iFilterFalse
+  iFilterFalse,
+  iSlice
 } from '../dist/distribution';
 
 describe('Iteration tools test', () => {
@@ -21,6 +22,15 @@ describe('Iteration tools test', () => {
       expect(check.next().value).to.equal(6);
       expect(check.next().value).to.equal(7);
       expect(check.next().value).to.equal(8);
+    });
+
+    it('should yield evenly spaced values and stop at the specified point', () => {
+      let check = count(5, 1, 3);
+
+      expect(check.next().value).to.equal(5);
+      expect(check.next().value).to.equal(6);
+      expect(check.next().value).to.equal(7);
+      expect(check.next().value).to.be.an('undefined');
     });
 
     it('should yield default values if no value is passed', () => {
@@ -155,7 +165,7 @@ describe('Iteration tools test', () => {
     })
   });
 
-   describe('iFilterFalse', () => {
+  describe('iFilterFalse', () => {
     it('should filter out values of the iterable if callback returns false', () => {
        let check = iFilterFalse([1,2,3,4,5,6], (i) => i % 2 === 0);
 
@@ -163,6 +173,24 @@ describe('Iteration tools test', () => {
       expect(check.next().value).to.equal(4);
       expect(check.next().value).to.equal(6);
       expect(check.next().value).to.be.an('undefined');
+    })
+  });
+
+  describe('iSlice', () => {
+    it('should return selected elements from iterable', () => {
+      let check1 = iSlice([1,2,3]);
+
+      expect(check1.next().value).to.equal(1);
+      expect(check1.next().value).to.equal(2);
+      expect(check1.next().value).to.equal(3);
+      expect(check1.next().value).to.be.an('undefined');
+
+      let check2 = iSlice([1,2,3,4,5,6], 3);
+
+      expect(check2.next().value).to.equal(4);
+      expect(check2.next().value).to.equal(5);
+      expect(check2.next().value).to.equal(6);
+      expect(check2.next().value).to.be.an('undefined');
     })
   });
 });

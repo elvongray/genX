@@ -28,6 +28,23 @@ function iterZip(firstIter, secondIter) {
   return result;
 }
 
+/**
+* Enumerate the values of an iterbale
+*/
+function enumerate(iterable) {
+  let enumerateArr = [];
+  let index = 0;
+
+  for(let element of iterable) {
+    let arr = [];
+    arr.push(index);
+    arr.push(element);
+    enumerateArr.push(arr);
+    index++;
+  }
+  return enumerateArr;
+}
+
 function throwNotIterableError(message) {
   let defaultMsg = 'The argument passed is not an iterable';
   let msg = message == null ? defaultMsg : message;
@@ -42,10 +59,14 @@ function throwNotIterableError(message) {
 * @param {number} step - The size of increment to make for each yield *default{1}
 * @return {object}
 */
-export function* count(start=0, step=1) {
+export function* count(start=0, step=1, stop) {
+  let index = 1;
+
   while (true) {
     yield start;
     start += step;
+    if (index === stop) return;
+    index += 1;
   }
 }
 
@@ -206,3 +227,26 @@ export function* iFilterFalse(iterable, callback) {
   }
 }
 
+/**
+* Create an iterator that returns selected element from an iterable
+*
+* @param {object} iterable
+* @param {integer} start - the index to start yielding elemnts: default 0
+* @param {integer} step - The size of increment to make for each yield
+* @param {integer} stop - the index to stop yielding element
+* @return {object}
+*/
+export function* iSlice(iterable, start=0, step=1, stop) {
+
+  if (!isIterable(iterable)) {
+    throwNotIterableError();
+  }
+
+  let range = count(start, step, stop);
+
+  for (let [index, element] of enumerate(iterable)) {
+    if (index === range.next().value) {
+      yield element;
+    }
+  }
+}

@@ -4,5 +4,7 @@ export {
   repeat,
   chain,
   compress,
-  dropWhile
+  dropWhile,
+  iFilter,
+  iFilterFalse
 } from './iter-tools';

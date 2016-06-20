@@ -6,7 +6,9 @@ import {
   repeat,
   chain,
   compress,
-  dropWhile
+  dropWhile,
+  iFilter,
+  iFilterFalse
 } from '../dist/distribution';
 
 describe('Iteration tools test', () => {
@@ -123,7 +125,7 @@ describe('Iteration tools test', () => {
 
   describe('dropWhile', () => {
     it('should drop values of iterable if callback returns true', () => {
-      let check = dropWhile([1,4,6,4,1], function(i) { return i < 5});
+      let check = dropWhile([1,4,6,4,1], (i) => i < 5);
 
       expect(check.next().value).to.equal(6);
       expect(check.next().value).to.equal(4);
@@ -132,7 +134,7 @@ describe('Iteration tools test', () => {
     });
 
     it('should throw error if argument passed is not an iterable', () => {
-      let check = dropWhile(1234, function(i) { return i < 5});
+      let check = dropWhile(1234, (i) => i < 5);
 
       try {
         check.next().value
@@ -140,5 +142,27 @@ describe('Iteration tools test', () => {
         expect(e.message).to.contain('The argument passed is not an iterable')
       }
     });
+  });
+
+  describe('iFilter', () => {
+    it('should filter out values of the iterable if callback returns true', () => {
+       let check = iFilter([1,2,3,4,5,6], (i) => i % 2 === 0);
+
+      expect(check.next().value).to.equal(1);
+      expect(check.next().value).to.equal(3);
+      expect(check.next().value).to.equal(5);
+      expect(check.next().value).to.be.an('undefined');
+    })
+  });
+
+   describe('iFilterFalse', () => {
+    it('should filter out values of the iterable if callback returns false', () => {
+       let check = iFilterFalse([1,2,3,4,5,6], (i) => i % 2 === 0);
+
+      expect(check.next().value).to.equal(2);
+      expect(check.next().value).to.equal(4);
+      expect(check.next().value).to.equal(6);
+      expect(check.next().value).to.be.an('undefined');
+    })
   });
 });

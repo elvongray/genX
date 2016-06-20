@@ -164,3 +164,45 @@ export function* dropWhile(iterable, callback) {
     if (shouldYield) yield element;
   }
 }
+
+/**
+* Creates an iterator that filters element from an iterable base on if
+* the callback passed returns true.
+*
+* @param {object} iterable
+* @param {function} callback - the callback is passed values from the iterable
+* and should return a boolean
+* @return {object}
+*/
+export function* iFilter(iterable, callback) {
+  if (!isIterable(iterable)) {
+    throwNotIterableError();
+  }
+
+  for (let element of iterable) {
+    if (!callback(element)) {
+      yield element
+    }
+  }
+}
+
+/**
+* Opposite of iFilter
+*
+* @param {object} iterable
+* @param {function} callback - the callback is passed values from the iterable
+* and should return a boolean
+* @return {object}
+*/
+export function* iFilterFalse(iterable, callback) {
+  if (!isIterable(iterable)) {
+    throwNotIterableError();
+  }
+
+  for (let element of iterable) {
+    if (callback(element)) {
+      yield element
+    }
+  }
+}
+

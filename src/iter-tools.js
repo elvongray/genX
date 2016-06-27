@@ -59,7 +59,7 @@ function throwNotIterableError(message) {
 * @param {number} step - The size of increment to make for each yield *default{1}
 * @return {object}
 */
-export function* count(start=0, step=1, stop) {
+export function* count(start=0, step=0, stop) {
   let index = 1;
 
   while (true) {
@@ -228,7 +228,7 @@ export function* iFilterFalse(iterable, callback) {
 }
 
 /**
-* Create an iterator that returns selected element from an iterable
+* Create an iterator that returns selected elements from an iterable
 *
 * @param {object} iterable
 * @param {integer} start - the index to start yielding elemnts: default 0
@@ -245,6 +245,7 @@ export function* iSlice(iterable, start=0, step=1, stop) {
   let range = count(start, step, stop);
 
   for (let [index, element] of enumerate(iterable)) {
+    console.log(range.next().value)
     if (index === range.next().value) {
       yield element;
     }

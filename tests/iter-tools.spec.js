@@ -178,12 +178,12 @@ describe('Iteration tools test', () => {
 
   describe('iSlice', () => {
     it('should return selected elements from iterable', () => {
-      // let check1 = iSlice([1,2,3]);
+      let check1 = iSlice([1,2,3]);
 
-      // expect(check1.next().value).to.equal(1);
-      // expect(check1.next().value).to.equal(2);
-      // expect(check1.next().value).to.equal(3);
-      // expect(check1.next().value).to.be.an('undefined');
+      expect(check1.next().value).to.equal(1);
+      expect(check1.next().value).to.equal(2);
+      expect(check1.next().value).to.equal(3);
+      expect(check1.next().value).to.be.an('undefined');
 
       let check2 = iSlice([1,2,3,4,5,6], 3);
 
@@ -191,6 +191,20 @@ describe('Iteration tools test', () => {
       expect(check2.next().value).to.equal(5);
       expect(check2.next().value).to.equal(6);
       expect(check2.next().value).to.be.an('undefined');
+
+      let check3 = iSlice([1,2,3,4,5,6], 0, 2);
+
+      expect(check3.next().value).to.equal(1);
+      expect(check3.next().value).to.equal(3);
+      expect(check3.next().value).to.equal(5);
+      expect(check3.next().value).to.be.an('undefined');
+
+      let check4 = iSlice([1,2,3,4,5,6], 0, 1, 3);
+
+      expect(check4.next().value).to.equal(1);
+      expect(check4.next().value).to.equal(2);
+      expect(check4.next().value).to.equal(3);
+      expect(check4.next().value).to.be.an('undefined');
     })
   });
 });

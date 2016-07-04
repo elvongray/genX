@@ -9,7 +9,8 @@ import {
   dropWhile,
   iFilter,
   iFilterFalse,
-  iSlice
+  iSlice,
+  iMap
 } from '../dist/distribution';
 
 describe('Iteration tools test', () => {
@@ -206,5 +207,17 @@ describe('Iteration tools test', () => {
       expect(check4.next().value).to.equal(3);
       expect(check4.next().value).to.be.an('undefined');
     })
+  });
+
+  describe('iMap', () => {
+    it('should apply the function to the elements of the iterable', () => {
+      let mul = (a, b) => a * b;
+      let check = iMap(mul, [1,2,3], [4,5,6]);
+
+      expect(check.next().value).to.equal(4);
+      expect(check.next().value).to.equal(10);
+      expect(check.next().value).to.equal(18);
+      expect(check.next().value).to.be.an('undefined');
+    });
   });
 });

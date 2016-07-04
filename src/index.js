@@ -7,5 +7,6 @@ export {
   dropWhile,
   iFilter,
   iFilterFalse,
-  iSlice
+  iSlice,
+  iMap
 } from './iter-tools';

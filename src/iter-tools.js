@@ -11,21 +11,29 @@ function isIterable(obj) {
 }
 
 /**
-* Zip the value of two iterables
+* Zip the elements of the iterables passed
 */
-function iterZip(firstIter, secondIter) {
+function iterZip(...iters) {
+  let arrayIters = [];
+  const iterL = iters.length;
   let result = [];
-  let firstIterValues = [...firstIter];
-  const firstLength = firstIterValues.length;
-  let secondIterValues = [...secondIter];
-  const secondLength = secondIterValues.length;
+  let smallestIter;
 
-  for(var i = 0; i < firstLength; i++) {
-    if (secondIterValues[i] != null) {
-      result.push([firstIterValues[i], secondIterValues[i]]);
-    } else break;
+  // convert the iterables to arrays
+  for (let i = 0; i < iterL; i++) {
+    arrayIters.push([...iters[i]]);
   }
-  return result;
+
+  // get the iterable that have the smallest number of elements
+  smallestIter = arrayIters.reduce((a, b) => {
+    return a.length < b.length ? a : b;
+  });
+
+ return smallestIter.map((item, index) => {
+    return arrayIters.map((arr) => {
+      return arr[index];
+    });
+ });
 }
 
 /**

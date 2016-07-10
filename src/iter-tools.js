@@ -266,18 +266,18 @@ export function* iSlice(iterable, start=0, step=1, stop) {
 * the iterables passed.
 *
 * @param {function}
-* @param {object} iterable
-* @param {object} iterable
+* @param {object} iterables
 * @return {object}
 */
-export function* iMap(func, iter1, iter2) {
-    if (!isIterable(iter1)) {
-      throwNotIterableError(`Argument 1 is not an iterable`);
-    } else if (!isIterable(iter2)) {
-      throwNotIterableError(`Argument 2 is not an iterable`)
-    }
+export function* iMap(func, ...iterables) {
 
-  let zipIterables = iterZip(iter1, iter2);
+  for (let i = 0; i < iterables.length; i++) {
+    if (!isIterable(iterables[i])) {
+      throwNotIterableError(`Argument ${i + 2} is not an iterable`);
+    }
+  }
+
+  let zipIterables = iterZip(...iterables);
 
   for (let elements of zipIterables) {
     yield func.apply(null, elements);
